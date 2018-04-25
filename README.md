@@ -1,2 +1,2 @@
-# Arbiter-PUF
-Arbiter PUF simulator 
+# Arbiter PUF
+A very simle python simulator of an arbiter PUF
