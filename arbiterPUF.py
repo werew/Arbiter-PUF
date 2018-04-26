@@ -1,8 +1,8 @@
 import random
 
 class Stage:
-    _delay_out_a = 0
-    _delay_out_b = 0
+    _delay_out_a = 0.
+    _delay_out_b = 0.
     _selector = 0
 
     def __init__(self,delay_a,delay_b):
@@ -22,21 +22,20 @@ class Stage:
 
 class ArbiterPUF:
     _stages = []
-    _min_delay = 0
-    _max_delay = 10
 
     def __init__(self,n):
         for _ in range(n):
             self._stages.append(
-                  Stage(random.randrange(self._min_delay, self._max_delay),
-                        random.randrange(self._min_delay, self._max_delay))
+                  Stage(random.random(),
+                        random.random())
             )
 
-    def set_challenge(self,chall):
+    def get_output(self,chall):
+        # Set challenge
         for stage,bit in zip(self._stages,chall):
             stage.set_selector(bit)
 
-    def get_output(self):
+        # Compute output
         delay = (0,0)
         for s in self._stages:
             delay = s.get_output(delay[0],delay[1])
@@ -47,5 +46,3 @@ class ArbiterPUF:
             return 1
         
     
-            
-        
