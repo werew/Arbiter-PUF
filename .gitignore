@@ -1,4 +1,8 @@
 *.pyc
 __pycache__
 venv
+penv
+myenv
 .ipynb_checkpoints
+.*.swp
+.*.swo
