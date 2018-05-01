@@ -1,4 +1,5 @@
 import random
+import numpy as np
 
 class Stage:
     _delay_out_a = 0.
@@ -21,14 +22,18 @@ class Stage:
                     delay_in_a  + self._delay_out_b)
 
 class ArbiterPUF:
+    _delays = [] # Not used, just for debugging
     _stages = []
 
     def __init__(self,n):
         for _ in range(n):
-            self._stages.append(
-                  Stage(random.random(),
-                        random.random())
-            )
+            d1 = np.random.normal()
+            d2 = np.random.normal()
+            #d1 = random.random()
+            #d2 = random.random()
+            self._stages.append(Stage(d1,d2))
+            self._delays.append(d1-d2) 
+            #print "d1,d2: " + str((d1,d2))
 
     def get_output(self,chall):
         # Set challenge
@@ -37,9 +42,13 @@ class ArbiterPUF:
 
         # Compute output
         delay = (0,0)
+        #print "##############################"
         for s in self._stages:
             delay = s.get_output(delay[0],delay[1])
+        #    print delay,
+        #print 
 
+        #print "Result: ",delay[0] - delay[1]
         if delay[0] < delay[1]:
             return 0
         else:
