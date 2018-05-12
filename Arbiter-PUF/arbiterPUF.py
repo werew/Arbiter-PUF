@@ -1,5 +1,5 @@
 import random
-import numpy as np
+#import numpy as np
 
 class Stage:
     _delay_out_a = 0.
@@ -22,12 +22,13 @@ class Stage:
                     delay_in_a  + self._delay_out_b)
 
 class ArbiterPUF:
-    _stages = []
 
     def __init__(self,n):
+        self._stages = []
+
         for _ in range(n):
-            d1 = np.random.normal()
-            d2 = np.random.normal()
+            d1 = random.random()
+            d2 = random.random()
             self._stages.append(Stage(d1,d2))
 
     def get_output(self,chall):
