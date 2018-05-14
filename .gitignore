@@ -6,3 +6,7 @@ myenv
 .ipynb_checkpoints
 .*.swp
 .*.swo
+micropython
+pyenv
+.*.swp
+.*.swo
