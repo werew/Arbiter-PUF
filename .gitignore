@@ -8,5 +8,4 @@ myenv
 .*.swo
 micropython
 pyenv
-.*.swp
-.*.swo
+build
