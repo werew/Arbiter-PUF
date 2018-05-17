@@ -1,5 +1,3 @@
-# coding: utf-8
-
 import numpy as np
 from sklearn.linear_model import LogisticRegression
 
@@ -28,7 +26,7 @@ tssetX = np.array([randbool(N+1) for i in range(ts)])
 tssetY = np.array([np.dot(p,w) for p in tssetX]) > 0
 
 
-lr = LogisticRegression(fit_intercept=False,dual=False)
+lr = LogisticRegression()
 lr.fit(trsetX, trsetY) 
 
 print "Score arbiter PUF (%d stages): %f" % (N,lr.score(tssetX,tssetY))
@@ -62,7 +60,7 @@ res_3 = np.array([np.dot(p,w3) for p in tssetX]) > 0
 tssetY = np.array([r1 ^ r2 ^ r3 for r1,r2,r3 in zip(res_1,res_2,res_3)])
 
 
-lr = LogisticRegression(fit_intercept=False,dual=False)
+lr = LogisticRegression()
 lr.fit(trsetX, trsetY) 
 
 print "Score XOR PUF (%d stages): %f" % (N,lr.score(tssetX,tssetY))
