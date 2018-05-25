@@ -1,5 +1,6 @@
 import pandas
 from scipy import stats
+import sys
 
 
 
@@ -48,8 +49,14 @@ hws_state = pandas.read_csv(tracecs_file,header=None).ix[:,8] # HW at the end of
 
 
 
+
 guesses = []
+
+print "Processing byte: ",
 for i in range(16):
+    print "%d.." % i,
+    sys.stdout.flush()
+
     byte_guesses = [] # A list of (key, correlation)
 
     for k in range(0xff):
@@ -62,13 +69,25 @@ for i in range(16):
         byte_guesses.append((k,corr))
 
     byte_guesses.sort(reverse=True, key=lambda x: x[1])
-    print byte_guesses[0:3]
-
     guesses.append(byte_guesses)
+
+print "done"
     
 
 
 
+print "############## Top 3 round key bytes guesses #################"
+for i in range(16):
+    print "---- Byte: %d ----" % i
+
+    for j in range(3):
+        print "%x (%f)" % (guesses[i][j][0],guesses[i][j][1]),
+    print ''
+
+
+
+
+print "Top round key guess:" + ''.join(hex(x[0][0]) for x in guesses)
 
         
 
