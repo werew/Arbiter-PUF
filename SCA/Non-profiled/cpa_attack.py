@@ -62,10 +62,13 @@ for i in range(16):
     for k in range(0xff):
         hws_byte = [] # Hw of byte i after 
 
-        for ct in ctxts:
-            hws_byte.append(hw(sboxInv[ord(ct[i]) ^ k]))
+        for j in range(1000):
+        #for ct in ctxts:
+            hws_byte.append(hw(sboxInv[ord(ctxts[j][i]) ^ k]))
+            #hws_byte.append(hw(sboxInv[ord(ct[i]) ^ k]))
 
-        corr = stats.pearsonr(hws_byte, hws_state)[0]
+        #corr = stats.pearsonr(hws_byte, hws_state)[0]
+        corr = stats.pearsonr(hws_byte, hws_state[:1000])[0]
         byte_guesses.append((k,corr))
 
     byte_guesses.sort(reverse=True, key=lambda x: x[1])
@@ -87,8 +90,7 @@ for i in range(16):
 
 
 
-print "Top round key guess:" + ''.join(hex(x[0][0]) for x in guesses)
-
+print "Top last round key guess: " + ''.join('%02x'% x[0][0] for x in guesses)
         
 
 
