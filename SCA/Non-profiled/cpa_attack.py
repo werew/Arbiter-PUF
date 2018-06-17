@@ -40,11 +40,8 @@ sboxInv = [
 
 tracecs_file = "traces_low_noise.csv"
 ciphertext_file = "ct_low_noise.csv"
-plaintext_file = "pt_low_noise.csv"
-
 
 ctxts = read_hexfile(ciphertext_file)    
-ptxts = read_hexfile(plaintext_file)
 hws_state = pandas.read_csv(tracecs_file,header=None).ix[:,8] # HW at the end of the 9th round
 
 
@@ -62,13 +59,13 @@ for i in range(16):
     for k in range(0xff):
         hws_byte = [] # Hw of byte i after 
 
-        for j in range(1000):
-        #for ct in ctxts:
-            hws_byte.append(hw(sboxInv[ord(ctxts[j][i]) ^ k]))
-            #hws_byte.append(hw(sboxInv[ord(ct[i]) ^ k]))
+        #for j in range(1000):
+        for ct in ctxts:
+            #hws_byte.append(hw(sboxInv[ord(ctxts[j][i]) ^ k]))
+            hws_byte.append(hw(sboxInv[ord(ct[i]) ^ k]))
 
-        #corr = stats.pearsonr(hws_byte, hws_state)[0]
-        corr = stats.pearsonr(hws_byte, hws_state[:1000])[0]
+        corr = stats.pearsonr(hws_byte, hws_state)[0]
+        #corr = stats.pearsonr(hws_byte, hws_state[:1000])[0]
         byte_guesses.append((k,corr))
 
     byte_guesses.sort(reverse=True, key=lambda x: x[1])

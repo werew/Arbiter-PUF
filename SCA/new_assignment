@@ -1,0 +1,4 @@
+How to introdce delay:
+
+if 1: -> HD(state + noise) # Gaussian noise
+if 0: -> random_value (between 0 and 128)
