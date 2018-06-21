@@ -45,30 +45,30 @@ sbox = [
 
 
 
-def inv_shift_rows(i):
-    """ Given a position of a byte, returns its 
-    new position after an inverse shift rows step
-    """
-    return (i + (i%4)*4)%16
-
-
 
 def get_byte_guesses(ptxts,hws_state,i):
-        byte_guesses = [] # A list of (key, correlation)
-        for k in range(0xff):
-            hws_byte = [] # Hw of byte i after 
+    """Returns a list of guesses for byte i sorted by correlation"""
+    byte_guesses = [] # A list of (key, correlation)
 
-            for pt in ptxts:
-                pt_byte = ord(pt[i])
-                hws_byte.append(hd(pt_byte,sbox[pt_byte ^ k]))
+    # Compute Paerson correlation for each possible byte value
+    for k in range(0xff):
+        hws_byte = [] # Hw of byte i after 
 
-            corr = stats.pearsonr(hws_byte, hws_state)[0]
-            byte_guesses.append((k,corr))
+        # For each plaintext in pt recover the HD
+        # of byte i for the first round
+        for pt in ptxts:
+            pt_byte = ord(pt[i])
+            hws_byte.append(hd(pt_byte,sbox[pt_byte ^ k]))
 
-        byte_guesses.sort(reverse=True, key=lambda x: x[1])
-        return byte_guesses
+        # Compute correlation with the HD in the traces
+        corr = stats.pearsonr(hws_byte, hws_state)[0]
+        byte_guesses.append((k,corr))
+
+    byte_guesses.sort(reverse=True, key=lambda x: x[1])
+    return byte_guesses
 
     
+
 
 def print_best_guesses(byte_guesses,n):
     for i in range(n):
@@ -80,12 +80,14 @@ def main():
     tracecs_file = "traces.csv"
     plaintext_file = "pt.csv"
 
+    # Read plaintexts
     ptxts = read_hexfile(plaintext_file)    
+
+    # Read HDs at for the first round
     hws_state = pandas.read_csv(tracecs_file,header=None).ix[:,0]
 
-    guesses = []
-    for i in range(16):
-        guesses.append(get_byte_guesses(ptxts,hws_state,i))
+    # Get list of guesses for each key byte
+    guesses = [get_byte_guesses(ptxts,hws_state,i) for i in range(16)]
 
     # Time to show the best guesses
     n = 3
@@ -101,6 +103,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
