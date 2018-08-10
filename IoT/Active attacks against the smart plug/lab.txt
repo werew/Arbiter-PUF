@@ -1,0 +1,22 @@
+IoT #2 - active attacks against the smart plug
+
+In this assignment, you are supposed to perform an active attack against an IoT device. 
+We will analyse the smart plug that was shown in the lecture. It uses an encrypted connection to a cloud service.
+ You are supposed to act as an man in the middle, decrypt that connection and provide the plaintext.
+Setup
+
+We will provide two (almost identical) access points with labels switch1/2 sniffing. 
+You are supposed to configure your laptop computer as a gateway (using probably eduroam as your uplink network) 
+and DHCP server and connect your laptop computer with an Ethernet cable to the blue networking port of the access point. 
+Then you will analyse the traffic that is transmitted to the cloud, perform a man-in-the-middle attack and provide the 
+plaintext of the connection.
+
+The switches have labels switch1/2, and they are configured to connect to the respective access points. 
+You may ask Erik to send commands to the respective switches from the mobile app.
+
+
+Please state what is transmitted when...
+
+    The switch connects to the cloud when it is powered on.
+    When it is instructed to switch the power on.
+    When it is instructed to switch the power off.

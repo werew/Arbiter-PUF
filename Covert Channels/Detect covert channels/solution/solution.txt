@@ -1,0 +1,3 @@
+The correct set of covert channel traces is 2.pcap, 5.pcap, 6.pcap, 9.pcap and 10.pcap.
+
+(our guess was 2, 5, 7, 9, 10)

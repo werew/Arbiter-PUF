@@ -1,0 +1,40 @@
+Covert Channels (Erik) #2 - Detect covert channels
+
+The traces are online
+
+You find your trace in your group page in the files section.
+
+In this assignment, you will receive multiple pcap captures. You have to
+decide which of them are from modified Android apps with a covert
+channel and which one of them are from the unmodified app.
+
+Part 1
+
+You receive 10 captures, 5 of them are from the unmodified app and 5 of
+them are from modified apps. You will have to say which one of them
+belongs to which category. You wil get:
+
+    5 points when you classify all of them correctly
+    4 points when you do a single mistake
+    3 points when you do 2 mistakes
+    2 points when you do 3 mistakes
+    1 point when you do 4 mistakes
+    0 points otherwhise
+
+Part 2
+
+Also, your app will be evaluated. You get 5*x points, and x is the
+percentage of how often your app was misclassified as an app without a
+covert channel.
+
+Sniffing Setup
+
+The following setup will be used to create the captures:
+
+The app is deployed on an Android One phone (Xiaomi A1) running Android
+8.0. The phone will be connected to a WiFi network and in the same
+network (connected via cable) will be a Linux system (probably Ubuntu
+18.04) running Docker and the server. There will be no firewalling
+between the two devices. When you would like to get a very similar
+environment in Android Studio, pick a recent phone such as the Pixel 2
+and select an Android Oreo 8.0 system image.

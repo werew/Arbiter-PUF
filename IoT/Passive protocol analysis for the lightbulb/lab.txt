@@ -1,0 +1,45 @@
+
+IoT #1 - passive protocol analysis for the lightbulb
+
+
+In your first assignment, you are supposed to analyse the network protocol of the smart light bulb that was shown in the lecture. 
+You task is to describe what is sent from the cloud to the device to switch on the light and what is sent to switch off the light. 
+Of course there are more features of the light (brightness, colours...), but you are not required to investigate that in the lecture.
+
+Describe in text how the command from the cloud to the device that switches the light on and off looks like. Also say whether there 
+is anything in the protocol that prevents attackers who control the network traffic to switch the light on or off.
+
+###########  Setup #################
+
+We will provide an access point. The device (the white box that acts as a bridge between WiFi and the light bulb) is 
+configured to connect to a WiFi network named milight with psk twente2018. The access point is configured to provide that 
+network and it will also provide an uplink through the eduroam network. Internally, the network is bridged to the internal bridge 
+br-mighlight. The access point has a label with: Milight sniffing with eduroam
+
+DO NOT CONNECT TO THE milight WIFI WITH YOUR COMPUTER, IT IS ONLY SUPPOSED TO BE USED BY THE MILIGHT BRIDGE!
+
+The access point will also run a second network for you attached to the yellow Ethernet ports. When you connect to one of the
+ yellow ports, you will receive an IPv4 address via DHCP. You can login to the access point with an ssh connection to 192.168.141.1
+ with username root and password twente2018.
+
+You can then run tcpdump like:
+
+tcpdump -i br-milight -n
+
+The internal space is limited, to do not write any files on the access point. For remote sniffing, you can do something like:
+
+ssh root@192.168.141.1 "tcpdump -s0 -w - -i br-milight" | wireshark-gtk -k -i -
+
+When your local wireshark binary is just wireshark, then do:
+
+ssh root@192.168.141.1 "tcpdump -s0 -w - -i br-milight" | wireshark -k -i -
+
+Do not change any other settings of the access point.
+
+You may ask Erik to switch the device on and off (or to change colours).
+
+
+############## Additional help ####################
+
+We have published a capture of the traffic of the device. Here, it was alternately switched on and off every 10 seconds.
+

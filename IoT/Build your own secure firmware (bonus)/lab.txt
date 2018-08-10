@@ -1,0 +1,93 @@
+IoT #3 (bonus) - build your own secure firmware
+
+In this assignment, you will build your own firmware for the ESP8266
+chip that is used in the smart plug. To assist you with that, we will
+provide you a Wemos D1 development board. The board uses the same chip
+as the plug and can be easily programmed via a micro USB connector.
+Setup
+
+To assist you with the network configuration, we will provide an access
+point (label esp8266 with eduroam) that spawns a network with SSID
+esp8266 with password twente2018. It will provide a DHCP server and
+uplink through eduroam. You may hardcode those values in your firmware.
+The access point will provide DHCP for your development board and the IP
+of the gateway will be 192.168.151.1.
+
+You may connect your laptop computer via a network cable to one of the
+yellow ports of the access point and you will receive an IP address
+within 192.168.150.0/24 via DHCP. As an IP address you may also pick
+192.168.150.200+X and X is your team number. You may also hard code
+those values into your firmware. The gateway for the Ethernet will be
+192.168.150.1, which also provides DNS.  Examples
+
+We provide you with two insecure reference implementations. in
+server.zip, you find a server written in python that sends an on or off
+command to every client that is connected every 5 seconds. The server is
+optimized for docker and docker-compose and you can start it with:
+
+docker-compose up
+
+The client is written in micropython and you will have to adjust some
+constants such as the server address in the script. After that, it will
+run on the wemos d1 board and toggle the status LED according to the
+instructions from the server.  Useful links
+
+    https://micropython.org/ (Links to an external site.)Links to an external site.
+    https://wiki.wemos.cc/products:d1:d1_mini (Links to an external site.)Links to an external site.
+    https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html (Links to an external site.)Links to an external site.
+    https://docs.docker.com/compose/ (Links to an external site.)Links to an external site.
+    https://docs.docker.com/engine/reference/builder/ (Links to an external site.)Links to an external site.
+    http://www.gevent.org/servers.html (Links to an external site.)Links to an external site.
+
+
+
+############ Stages ############ 
+
+You may complete the assignment in several stages:
+
+Stage 1
+
+Build a working firmware for the development board that controls the
+internal LED of the board (GPIO pin 2). The firmware should be secure
+against passive and active attacks from the network. Usually there is
+something like an initial pairing process that is used to take ownership
+and to configure the WiFi settings. You may omit that step and instead
+just assume that something like that would exist and something like a
+"secret", for example a cryptographic key, a password, an encryption key
+or a similar thing is configured and stored on the device. In your
+firmware, you may just hard code the WiFi settings and that "secret".
+
+
+Stage 2
+
+There is a relay shield for your development board. in stage 2, you may
+solder the pin headers to your board and the relay shield and then
+connect both. Now your firmware controls a real relay instead of just an
+LED, which gives you something equivalent to the Sonoff S20. You will
+have to adjust the GPIO pin in your firmware. We will offer a soldering
+session during one of the following labs for that.  Stage 3
+
+Now, you are supposed to try the firmware on the real Sonoff S20. With
+all external power disconnected from the Sonoff S20, you may flash your
+firmware to the Sonoff S20. Then you assemble the device again and test
+it.
+
+Submission
+
+You are supposed to submit your firmware in source form and possibly
+instructions how to build and flash it. For python based firmwares,
+there is usually no dedicated build. However you are not restricted to
+python. You may use any kind of (free) development kit that results in a
+working firmware for the ESP8266.
+
+The example server is written in python, but you may submit everything
+that can be run in a Docker environment and starts with docker-compose
+up, which is pretty much anything. Please provide the server in source
+code form and let Docker perform the build, should it be required.
+
+And finally, you should provide some documentation that describes how
+the device communicates and why this communication is secure.
+
+Submit everything in a zip archive. It should contain at least two
+folders (server and client), as well as the documentation in text or PDF
+form.

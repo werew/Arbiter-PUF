@@ -1,0 +1,37 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:defaultValue="@string/pref_default_display_name"
+        android:inputType="textUri"
+        android:key="url"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_title_display_name"
+        />
+
+    <PreferenceCategory
+        android:title="Ultrasonic Covert Channel">
+        <EditTextPreference
+            android:defaultValue="20000"
+            android:dialogTitle="Frequency (Hz)"
+            android:inputType="number"
+            android:key="frequency"
+            android:title="Frequency" />
+
+        <EditTextPreference
+            android:defaultValue="200"
+            android:dialogTitle="Block duration (ms)"
+            android:inputType="number"
+            android:key="block_duration"
+            android:title="Block Duration" />
+
+        <EditTextPreference
+            android:defaultValue="20"
+            android:dialogTitle="Fade duration (ms)"
+            android:inputType="number"
+            android:key="fade_duration"
+            android:title="Fade Duration" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

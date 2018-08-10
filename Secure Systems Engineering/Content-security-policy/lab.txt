@@ -1,0 +1,10 @@
+Secure Systems Engineering #1 - Add a content-security-policy
+
+
+in the files section, you find a simple python web application that lets you search for former US presidents. 
+The application can be attacked using cross side scripting. Your task is to modify the application so that it 
+delivers a Content Security Policy that prevents an attacker from successfully injecting and executing JavaScript code.
+
+
+Hint
+You can solve that by adding a single additional HTTP header to the response.

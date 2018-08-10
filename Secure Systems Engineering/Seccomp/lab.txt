@@ -1,0 +1,8 @@
+Secure Systems Engineering #2 - Add seccomp rules
+
+
+In the files section, you find a C implementation of the random cat webserver you already know from the last assignments. 
+The code for the server is obviously poorly written and might be exploitable by a remote attacker.
+
+Your task is to add seccomp rules to the process. In a nutshell, all syscalls that are not required by the server
+ should be denied before the first byte of remote input is processed.

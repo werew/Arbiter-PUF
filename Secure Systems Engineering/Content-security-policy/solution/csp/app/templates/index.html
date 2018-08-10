@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>US Presidents</title>
+</head>
+
+<body>
+<h1>US president search</h1>
+<form action="/" method="GET">
+<p>Type a part of the name here: <input type="text" name="s"/></p>
+</form>
+{% if r %}
+{{ r }}
+<ul>
+{% for m in results %}
+{{ m }}
+{% endfor %}
+</ul>
+{% endif %}
+</body>
+
+</html>

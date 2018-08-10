@@ -1,0 +1,41 @@
+
+Covert Channels (Erik) #3 (Bonus) - Ultrasonic covert channel
+
+In this assignment, you are supposed to implement an ultrasonic covert
+channel. You will again modify the Android App from the first
+assignment, but this time the app is supposed to exfiltrate the secret
+via ultrasonic sound.
+
+Submission
+
+You are supposed to submit:
+
+    The modified App in source code form as well as an APK
+    A short description how you implemented the channel
+
+Setting
+
+After the lab sessions on June13th and 14th, we will install you app on
+an Xiaomi A1 phone running the latest version of Android. We will then
+enter a 4 digit pin number, and you are then supposed to recover that
+pin number with either your laptop computer or your mobile phone from a
+1-2 meter distance. Before the pin is entered, the phone will be put
+into flight mode.
+
+
+Implementation
+
+I recommend implementing a covert channel usuing (ultrasonic) sound.
+Should you however feel like using a different channel such as causing
+electromagnetic radiation, then you are also free to implement this
+other channel as long as it also works in flight mode! Very creative
+solutions might be graded with more than 20 points here.
+
+
+Grading
+
+You will receive 15 bonus points when:
+
+    You manage to recover that pin number within seconds to minutes
+    And we do not hear anything
+    And the app does not require any special permissions such as for example switching the WiFi/Bluetooth on an off.

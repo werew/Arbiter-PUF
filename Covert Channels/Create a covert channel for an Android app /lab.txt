@@ -1,0 +1,100 @@
+Covert Channels (Erik) #1 - Create a covert channel for an Android app
+
+
+You are supposed to modify an Android app that establishes a covert
+channel with a remote server. The current app shows a text field that
+can be used for notes as well as cute cat pictures that are refreshed
+from a remote server every 5 seconds.  
+
+The Android App
+
+The Android App is written in Kotlin and can be downloades here. We
+recommend to use Android Studio (Links to an external site.)Links to an
+external site. for the app development, but other environments are just
+as fine. For Kotlin, there is a good reference here (Links to an
+external site.)Links to an external site..
+
+The most important part (and probably the only code you need to modify
+is BackgroundUpdater.kt, which runs this code here in a loop:
+
+
+override fun run() {
+    while (true) {
+        if (stopNow) {
+            // Activity has been terminated, also terminate the thread
+            return
+        }
+        try {
+            // Get the URL of our randomcat server
+            val url = URL(getUrl())
+
+            // Open an HTTP connection to that URL
+            val urlConnection = url.openConnection() as HttpURLConnection
+
+            try {
+                // Try to decode a bitmap from the server response
+                var bitmap = BitmapFactory.decodeStream(urlConnection.inputStream)
+
+                // Update the activity with the new images.
+                activity!!.runOnUiThread(UpdateImageRequest(bitmap, activity!!))
+            } catch (e: Exception) {
+                Log.e("Network", "HTTP request failed for URL: " + url + " or download problem", e)
+            } finally {
+                urlConnection.disconnect()
+            }
+        } catch (e: Exception) {
+            Log.e("Network", "Problem with download", e)
+        }
+        Log.d("Background", "Completed network operation, now sleeping")
+        try {
+            Thread.sleep(5000)
+        } catch (e: InterruptedException) {
+
+        }
+    }
+}
+
+The App has a preference screen that allows you to enter an URL. This
+could be for example http://192.168.100.1:5000/ (Links to an external
+site.)Links to an external site. when the server is running on host
+192.168.100.1 and is listening on port 5000. Please do not change the
+port number.
+
+Also, in AndroidManifest.xml, please change the app_name from 00 -
+SecretNotesTaker to <your team number> - SecretNotesTaker, so that we
+can idendify your app easily.
+
+
+The Python Server
+
+The server is written in Python3 using flask (Links to an external
+site.)Links to an external site.. You find the server here. To start the
+server on a system with Docker and docker-compose, just run
+docker-compose up. When you modify it later, you might need to run
+docker-compose up --build. The server will then listen for http requests
+on port 5000. You can test it by going to
+http://127.0.0.1:5000/randomcat (Links to an external site.)Links to an
+external site. and you will see a random cute cat picture.  The secret
+(the note)
+
+It is sufficient when the app is able to exfiltrate 4 digit Pin numbers.
+Your implementation should not take significantly longer than 2 minutes
+to exfiltrate it.
+
+
+Useful links
+
+    https://developer.android.com/kotlin/ (Links to an external site.)Links to an external site. (how to get started)
+    http://kotlinlang.org/docs/reference/android-overview.html (Links to an external site.)Links to an external site. (A general overview)
+    http://www.baeldung.com/kotlin-regular-expressions (Links to an external site.)Links to an external site. (Regex, useful to check whether a string is a 4 digit pin)
+
+Submission
+
+You are expected to submit:
+
+    The modified Android app in source code form (zip file or subfolder)
+    An APK that you managed to built
+    The modified server in source code form (zip file or subfolder)
+    A short description of what you implemented and how your covert channel works
+    An example output of the server that shows some information that was exfiltrated from the app
+
